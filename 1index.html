@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GridBESS EMS | Energy Management Dashboard</title>
+<style>
+:root{--bg:#0b1220;--panel:#121d2e;--panel2:#172438;--line:#26364b;--muted:#91a2b8;--text:#edf4fb;--green:#36d399;--cyan:#54c8e8;--amber:#f5bd55;--red:#fb7185}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 15% 0%,#142b38 0,transparent 32%),var(--bg);color:var(--text);font:14px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
+.app{max-width:1440px;margin:auto;padding:26px}.top{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:24px}.brand{display:flex;align-items:center;gap:13px}.logo{width:45px;height:45px;border-radius:13px;background:linear-gradient(135deg,#1b8068,#1b4355);display:grid;place-items:center;color:#8df4ce;font-size:24px}.brand h1{font-size:19px;letter-spacing:.12em;margin:0}.brand p{margin:2px 0 0;color:var(--muted);font-size:11px;letter-spacing:.12em}.topright{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.pill{border:1px solid var(--line);background:#142235;padding:7px 11px;border-radius:30px;color:#c4d2e2;font-size:12px}.live{color:var(--green)}select{background:#142235;color:var(--text);border:1px solid var(--line);border-radius:9px;padding:9px 12px}
+h2{font-size:17px;margin:0 0 14px}.sub{color:var(--muted);font-size:12px}.grid{display:grid;gap:14px}.kpis{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:16px}.card{background:linear-gradient(160deg,rgba(23,36,56,.97),rgba(16,27,43,.97));border:1px solid var(--line);border-radius:15px;padding:17px;box-shadow:0 8px 24px #0002}.kpi-label{color:var(--muted);font-size:12px;display:flex;justify-content:space-between}.kpi-value{font-size:27px;font-weight:700;margin:8px 0 2px;letter-spacing:-.04em}.green{color:var(--green)}.cyan{color:var(--cyan)}.amber{color:var(--amber)}.layout{grid-template-columns:1.35fr .85fr;margin-bottom:14px}.wide{grid-template-columns:1.2fr .8fr;margin-bottom:14px}.flow{display:grid;grid-template-columns:1fr 1.15fr 1fr;gap:10px;align-items:center}.node{background:#101b2b;border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center;min-height:105px}.node .ico{font-size:22px}.node strong{display:block;margin:4px 0}.node small{color:var(--muted)}.controller{border:1px solid #267a68;background:linear-gradient(135deg,#123b36,#142b3c);border-radius:13px;padding:18px;text-align:center}.controller strong{display:block;font-size:14px;letter-spacing:.08em}.controller small{color:#a8c9c4}.arrow{text-align:center;color:var(--green);font-size:19px}.flow-bottom{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}.meter{margin-top:15px}.meter-head{display:flex;justify-content:space-between;margin-bottom:7px}.bar{height:9px;border-radius:20px;background:#26364b;overflow:hidden}.bar span{height:100%;display:block;background:linear-gradient(90deg,#168f70,#42d9a4);border-radius:20px}.controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:12px}.controls input{accent-color:var(--green);width:100%}.controlbox{background:#101b2b;border:1px solid var(--line);border-radius:11px;padding:12px;margin-top:12px}.toggle{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid #26364b}.toggle:last-child{border:0}.tag{font-size:10px;border-radius:20px;padding:4px 8px;background:#153b34;color:var(--green)}.chart-wrap{height:245px;position:relative}.chart-wrap canvas{width:100%;height:100%}.metrics{grid-template-columns:repeat(4,1fr)}.metric{background:#101b2b;border:1px solid var(--line);border-radius:11px;padding:13px}.metric b{font-size:21px;display:block;margin:5px 0}.events{display:grid;gap:12px}.event{display:flex;gap:11px;align-items:flex-start}.dot{width:8px;height:8px;background:var(--green);border-radius:50%;margin-top:6px;flex:none}.event small{color:var(--muted)}.foot{color:var(--muted);font-size:11px;text-align:center;margin:20px 0 4px}.notice{margin-top:14px;padding:11px 13px;border:1px solid #66512c;background:#2b2417;border-radius:10px;color:#e9d5a5;font-size:11px}
+@media(max-width:900px){.kpis,.metrics{grid-template-columns:repeat(2,1fr)}.layout,.wide{grid-template-columns:1fr}}@media(max-width:560px){.app{padding:15px}.top{align-items:flex-start;flex-direction:column}.kpi-value{font-size:23px}.flow{grid-template-columns:1fr}.arrow{transform:rotate(90deg)}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top">
+ <div class="brand"><div class="logo">ϟ</div><div><h1>GRIDBESS EMS</h1><p>ENERGY MANAGEMENT SYSTEM · EDGE AI</p></div></div>
+ <div class="topright"><span class="pill live">● DEMO MODE</span><select id="site"><option>OSB Fabrikası – Pilot 01</option><option>Mikroşebeke – Pilot 02</option></select><span class="pill">● Simülasyon aktif</span></div>
+</header>
+<section class="grid kpis">
+ <div class="card"><div class="kpi-label">☀ PV ÜRETİMİ <span>BUGÜN</span></div><div class="kpi-value amber">742 <small>kWh</small></div><div class="sub">Örnek günlük veri</div></div>
+ <div class="card"><div class="kpi-label">⌁ ŞEBEKE TÜKETİMİ <span>BUGÜN</span></div><div class="kpi-value cyan">486 <small>kWh</small></div><div class="sub">Örnek günlük veri</div></div>
+ <div class="card"><div class="kpi-label">▰ BATARYA GÜCÜ <span>ANLIK</span></div><div class="kpi-value green">+185 <small>kW</small></div><div class="sub">Örnek deşarj</div></div>
+ <div class="card"><div class="kpi-label">↘ ENERJİ TASARRUFU <span>HEDEF</span></div><div class="kpi-value green">%24</div><div class="sub">Proje hedef aralığında</div></div>
+</section>
+<section class="grid layout">
+ <div class="card">
+  <h2>Enerji akış mimarisi</h2><div class="sub" style="margin-bottom:14px">Örnek sistem topolojisi · gerçek zamanlı telemetri bağlı değil</div>
+  <div class="flow">
+   <div class="node"><div class="ico">☀️</div><strong>Solar PV</strong><b class="amber">320 kW</b><small>Örnek anlık güç</small></div>
+   <div class="controller"><div style="font-size:25px">⌘</div><strong>GRIDBESS EDGE CONTROLLER</strong><small>Phoenix Contact PLC · Edge AI · EMS</small><div class="tag" style="display:inline-block;margin-top:9px">Yerel kontrol mimarisi</div></div>
+   <div class="node"><div class="ico">🏭</div><strong>Fabrika yükü</strong><b class="cyan">410 kW</b><small>Örnek anlık güç</small></div>
+  </div>
+  <div class="flow-bottom"><div class="node"><div class="ico">🔋</div><strong>BESS</strong><b class="green">2 MWh</b><small>1 MW güç kapasitesi</small></div><div class="node"><div class="ico">⚡</div><strong>Şebeke</strong><b class="cyan">185 kW</b><small>Örnek güç alışverişi</small></div></div>
+  <div class="sub" style="margin-top:12px">Protokoller: Modbus TCP · OPC UA · IEC 60870-5-104</div>
+ </div>
+ <div class="card">
+  <h2>Batarya yönetimi · BMS</h2>
+  <div class="meter"><div class="meter-head"><span class="sub">State of Charge (SoC)</span><strong id="socVal" class="green">68%</strong></div><div class="bar"><span id="socBar" style="width:68%"></span></div></div>
+  <div class="controls"><label for="soc" class="sub">Demo SoC değerini değiştir</label><input id="soc" type="range" min="10" max="100" value="68"></div>
+  <div class="meter"><div class="meter-head"><span class="sub">State of Health (SoH)</span><strong class="green">96%</strong></div><div class="bar"><span style="width:96%"></span></div></div>
+  <div class="controlbox"><div class="sub">EMS ÇALIŞMA MODU</div><div class="controls"><select id="mode"><option>Otomatik</option><option>Manuel</option><option>Bekleme</option></select><span id="modeStatus" class="tag">Otomatik</span></div><div class="sub" style="margin-top:8px">Bu seçim yalnızca demo arayüzünü değiştirir; PLC'ye komut göndermez.</div></div>
+  <div class="toggle"><span>Peak shaving</span><span class="tag">Aktif · Demo</span></div><div class="toggle"><span>PV tahminleme</span><span class="tag">Aktif · Demo</span></div><div class="toggle"><span>SoC / SoH izleme</span><span class="tag">Aktif · Demo</span></div><div class="toggle"><span>Offline çalışma</span><span class="tag">Mimari özellik</span></div>
+ </div>
+</section>
+<section class="grid wide">
+ <div class="card"><h2>Enerji üretim ve tüketim analizi</h2><div class="sub">Örnek 24 saatlik simülasyon verileri · kW</div><div class="chart-wrap"><canvas id="chart"></canvas></div></div>
+ <div class="card"><h2>Ekonomik ve çevresel etki</h2><div class="grid metrics">
+  <div class="metric"><span class="sub">Yenilenebilir enerji kaydırma</span><b class="cyan">297–535</b><small class="sub">MWh / yıl</small></div>
+  <div class="metric"><span class="sub">Öngörülen CO₂ azaltımı</span><b class="green">141–253</b><small class="sub">ton / yıl</small></div>
+  <div class="metric"><span class="sub">Net fatura tasarrufu hedefi</span><b class="green">%20–30</b><small class="sub">Proje hedefi</small></div>
+  <div class="metric"><span class="sub">Yatırım geri dönüş hedefi</span><b class="amber">4–5</b><small class="sub">Yıl</small></div>
+ </div><div class="notice">CO₂ ve enerji kaydırma değerleri PDF'deki 1 MW / 2 MWh pilot varsayımlarına dayalı tahminlerdir; ölçülmüş saha sonucu değildir.</div></div>
+</section>
+<section class="grid layout">
+ <div class="card"><h2>EMS optimizasyon akışı</h2><div class="events">
+  <div class="event"><span class="dot"></span><div><strong>Optimizasyon döngüsü</strong><br><small>Tarife, PV tahmini ve yük profili değerlendirilir.</small></div></div>
+  <div class="event"><span class="dot"></span><div><strong>Batarya güvenlik kontrolü</strong><br><small>BMS sınırları ve SoC kontrolü uygulanır.</small></div></div>
+  <div class="event"><span class="dot"></span><div><strong>Peak shaving</strong><br><small>Güç talebini azaltmaya yönelik deşarj planlanır.</small></div></div>
+  <div class="event"><span class="dot"></span><div><strong>Bulut raporlama</strong><br><small>Tasarruf, ROI ve CO₂ verileri izlenir.</small></div></div>
+ </div></div>
+ <div class="card"><h2>Sistem bağlantıları</h2><div class="toggle"><span>Edge controller</span><span class="tag">Demo</span></div><div class="toggle"><span>BMS / PCS / inverter</span><span class="tag">Simülasyon</span></div><div class="toggle"><span>Smart meter</span><span class="tag">Simülasyon</span></div><div class="toggle"><span>IoT cloud</span><span class="tag">Tasarım</span></div><div class="sub" style="margin-top:12px">Kritik kontrol sahadaki edge controller üzerinde kalır. Bulut katmanı izleme, analitik, tasarruf ve ROI raporlaması içindir.</div></div>
+</section>
+<div class="notice">VERİ DURUMU · Bu ekran ürün arayüzü prototipidir. Anlık değerler örnek veridir. MATLAB / Simulink doğrulaması, hardware-in-the-loop testi ve gerçek saha bağlantısı tamamlanmış kabul edilmemektedir. Gerçek kontrol komutları için ayrıca PLC haberleşmesi, güvenlik kilitleri ve test süreçleri gerekir.</div>
+<footer class="foot">GRIDBESS EMS · PHASE 1 IGNITE · ŞERİFE BOSTAN · 2026</footer>
+</div>
+<script>
+const soc=document.getElementById('soc');soc.addEventListener('input',()=>{document.getElementById('socVal').textContent=soc.value+'%';document.getElementById('socBar').style.width=soc.value+'%'});
+const mode=document.getElementById('mode');mode.addEventListener('change',()=>document.getElementById('modeStatus').textContent=mode.value);
+function draw(){const c=document.getElementById('chart'),r=c.getBoundingClientRect(),dpr=window.devicePixelRatio||1;c.width=r.width*dpr;c.height=r.height*dpr;const x=c.getContext('2d');x.scale(dpr,dpr);const w=r.width,h=r.height,p={l:38,r:12,t:14,b:30},W=w-p.l-p.r,H=h-p.t-p.b;const pv=[30,120,290,420,380,210,50,0,0],load=[170,250,340,390,410,360,300,230,180],labels=['06','08','10','12','14','16','18','20','22'],max=500;x.font='10px system-ui';x.strokeStyle='#26364b';x.fillStyle='#91a2b8';x.lineWidth=1;
+for(let i=0;i<=4;i++){let y=p.t+H*i/4;x.beginPath();x.moveTo(p.l,y);x.lineTo(w-p.r,y);x.stroke();x.fillText(String(max-i*125),3,y+3)}
+labels.forEach((v,i)=>x.fillText(v,p.l+i*W/(labels.length-1)-6,h-7));
+function line(a,color){x.beginPath();a.forEach((v,i)=>{let xx=p.l+i*W/(a.length-1),yy=p.t+H-(v/max)*H;i?x.lineTo(xx,yy):x.moveTo(xx,yy)});x.strokeStyle=color;x.lineWidth=2.5;x.stroke()}
+line(pv,'#f5bd55');line(load,'#54c8e8');x.fillStyle='#f5bd55';x.fillRect(w-145,7,9,9);x.fillStyle='#cbd7e5';x.fillText('PV üretimi',w-131,16);x.fillStyle='#54c8e8';x.fillRect(w-72,7,9,9);x.fillStyle='#cbd7e5';x.fillText('Yük',w-58,16)}
+window.addEventListener('resize',draw);draw();
+</script>
+</body></html>
